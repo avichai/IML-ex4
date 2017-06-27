@@ -1,7 +1,6 @@
 import numpy as np
 from matplotlib import pyplot as plt
 
-
 POLY_DEGREES = list(range(1, 16))
 K_FOLD_CONST = 5
 
@@ -91,9 +90,12 @@ def main():
     # print validated classifier's test error
     w_star_test_err = calc_error(Y_test, predict(X_test, w_star))
     w_star_kfold_test_err = calc_error(Y_test, predict(X_test, w_star_kfold))
-    print("w* =          {}".format([float("{:.6f}".format(c)) for c in w_star]))
-    print("w*_kfold =    {}".format([float("{:.6f}".format(c)) for c in w_star_kfold]))
-    print("w*-w*_kfold = {}".format([float("{:.6f}".format(c)) for c in (w_star - w_star_kfold)]))
+    print(
+        "w* =          {}".format([float("{:.6f}".format(c)) for c in w_star]))
+    print("w*_kfold =    {}".format(
+        [float("{:.6f}".format(c)) for c in w_star_kfold]))
+    print("w*-w*_kfold = {}".format(
+        [float("{:.6f}".format(c)) for c in (w_star - w_star_kfold)]))
     print()
     print("w* test error =       {:.6f}".format(w_star_test_err))
     print("w*_kfold test error = {:.6f}".format(w_star_kfold_test_err))
@@ -103,6 +105,7 @@ def main():
     plot_errors("Validation error", val_errs)
 
     plt.show()
+
 
 if __name__ == "__main__":
     main()

@@ -11,7 +11,7 @@ def create_train_val_test(num, data):
 
 def train_model(all_w, loss_on_valid, loss_on_train, num, y_train, y_valid,
                 x_train, x_valid):
-    x = create_train_val_test(num+1, x_train)
+    x = create_train_val_test(num + 1, x_train)
     x_x_t = np.dot(x, x.transpose())
     x_x_t_inv = np.linalg.pinv(x_x_t)
     x_y = np.dot(x, y_train)
@@ -23,7 +23,7 @@ def train_model(all_w, loss_on_valid, loss_on_train, num, y_train, y_valid,
     loss = np.sum(np.square(result - y_train), 0) / y_train.shape[0]
     loss_on_train.append(loss)
 
-    x_val = create_train_val_test(num+1, x_valid)
+    x_val = create_train_val_test(num + 1, x_valid)
     x_val_t = x_val.transpose()
     result = np.dot(x_val_t, w_star)
     loss = np.sum(np.square(result - y_valid), 0) / y_valid.shape[0]
@@ -75,7 +75,7 @@ def run_least_square_alg(y_train, y_valid, y_test, x_train, x_valid, x_test):
 
 
 def least_square(train_set, train_label_set, d):
-    x = create_train_val_test(d+1, train_set)
+    x = create_train_val_test(d + 1, train_set)
     x_x_t = np.dot(x, x.transpose())
     x_x_t_inv = np.linalg.pinv(x_x_t)
     x_y = np.dot(x, train_label_set)
@@ -87,7 +87,8 @@ def get_loss(h, untrained_set, untrained_set_label):
     x = create_train_val_test(h.shape[0], untrained_set)
     x_t = x.transpose()
     result = np.dot(x_t, h)
-    loss = np.sum(np.square(result - untrained_set_label), 0) / untrained_set_label.shape[0]
+    loss = np.sum(np.square(result - untrained_set_label), 0) / \
+           untrained_set_label.shape[0]
     return loss
 
 
@@ -107,14 +108,14 @@ def run_k_fold_alg(x_fold, y_fold):
             loss = get_loss(h, x_split[j], y_split[j])
             loss_h.append(loss)
         loss_h = np.array(loss_h)
-        error.append(np.sum(loss_h)/5)
+        error.append(np.sum(loss_h) / 5)
 
     error = np.array(error)
     # print(error)
     ind = np.argmin(error)
     print(ind)
 
-    h_star = least_square(x_fold, y_fold, ind+1)
+    h_star = least_square(x_fold, y_fold, ind + 1)
     print(h_star)
 
     d = np.arange(1, 16)
